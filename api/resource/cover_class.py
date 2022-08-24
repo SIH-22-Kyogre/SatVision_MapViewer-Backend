@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, jsonify
 from flask_restful import Resource 
 import base64 
 import io 
@@ -10,6 +10,7 @@ from ..process import classifier
 # NOTE: Use reqparse instances for argument parsing from the URL - trigger it through the ctor
 
 # TODO: Decide the req-res sequence for img_fetch-predict-render_class
+# TODO: Add class index decoding
 
 class CoverClass(Resource):
 
@@ -25,5 +26,7 @@ class CoverClass(Resource):
 
         pred_class = classifier.classify_image(img_np, clf_name)
         # TODO: Handle -1 error here?
-        return pred_class
+        return jsonify({
+            "class": pred_class
+        })
         

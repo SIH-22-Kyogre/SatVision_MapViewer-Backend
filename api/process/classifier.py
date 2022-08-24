@@ -2,6 +2,8 @@ import pickle
 import os
 import numpy as np
 
+from . import utils
+
 PICKLES_PATH = os.path.join(
     os.path.abspath(os.path.split(__file__)[0]),
     os.path.pardir,
@@ -22,9 +24,10 @@ def classify_image(img, clf_name):
     ), 'rb'))
 
     if model is not None:
-        return model.predict(
+        pred_class = model.predict(
             np.expand_dims(img, axis=0)
         )[0]
+        return int(utils.decode_one_hot(pred_class)[0][0])
 
     else:
         return -1

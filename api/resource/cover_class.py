@@ -15,7 +15,7 @@ class CoverClass(Resource):
     def post(self, clf_name="vgg16-eurosat"):
 
         # POSTed 'img' data contains raw satellite image
-        src_img = request.form['img']
+        src_img = request.json.get('img')
         pred_class = classifier.classify_image(src_img, clf_name)
         
         # TODO: Handle -1 error here?

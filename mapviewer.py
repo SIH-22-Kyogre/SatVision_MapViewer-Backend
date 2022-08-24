@@ -17,6 +17,14 @@ api.add_resource(
 	)
 )
 
+api.add_resource(
+	CoverClass, 
+	API_ROUTE.format(
+		path = "classify/<clf_name>"
+	)
+)
+
+
 # main event loop
 if __name__ == '__main__':
 	app.run(debug=True)

@@ -7,6 +7,6 @@ class HelloWorld(Resource):
 		pass
 
 	def get(self):
-		return {
-			"Hello": "World"
-		}
+		return dict(
+			message = "Hello World"
+        )

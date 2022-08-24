@@ -1,9 +1,9 @@
 import pickle
 import os
+import numpy as np
 
 PICKLES_PATH = os.path.join(
     os.path.abspath(os.path.split(__file__)[0]),
-    os.path.pardir,
     'assets',
     'pickles'
 )

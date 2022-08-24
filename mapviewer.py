@@ -2,6 +2,7 @@ from flask import Flask
 from flask_restful import Api 
 
 from api.resource.hello_world import HelloWorld
+from api.resource.cover_class import CoverClass
 
 API_ROUTE = "/api/{path}"
 

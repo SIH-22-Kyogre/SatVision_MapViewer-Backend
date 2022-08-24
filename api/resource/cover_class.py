@@ -1,5 +1,9 @@
 from flask import request
 from flask_restful import Resource 
+import base64 
+import io 
+import numpy as np
+from PIL import Image
 
 from ..process import classifier
 
@@ -15,9 +19,11 @@ class CoverClass(Resource):
     def post(self, clf_name="vgg16-eurosat"):
 
         # POSTed 'img' data contains raw satellite image
-        src_img = request.json.get('img')
-        pred_class = classifier.classify_image(src_img, clf_name)
-        
+        img_b64 = request.json.get('img')
+        img_bytes = base64.b64decode(img_b64)
+        img_np = np.asarray(Image.open(io.BytesIO(img_bytes)))
+
+        pred_class = classifier.classify_image(img_np, clf_name)
         # TODO: Handle -1 error here?
         return pred_class
         

@@ -4,6 +4,7 @@ import numpy as np
 
 PICKLES_PATH = os.path.join(
     os.path.abspath(os.path.split(__file__)[0]),
+    os.path.pardir,
     'assets',
     'pickles'
 )
@@ -15,14 +16,14 @@ classifier_mapping = {
 
 def classify_image(img, clf_name):
     
-    model = pickle.load(os.path.join(
+    model = pickle.load(open(os.path.join(
         PICKLES_PATH, 
         classifier_mapping.get(clf_name, None)
-    ))
+    ), 'rb'))
 
     if model is not None:
         return model.predict(
-            np.asarray(img).expand_dims(axis=0)
+            np.expand_dims(img, axis=0)
         )[0]
 
     else:

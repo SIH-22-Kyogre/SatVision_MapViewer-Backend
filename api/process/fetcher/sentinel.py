@@ -12,6 +12,18 @@ session, token_info = get_oauth_session(gen_token=True)
 # print(session)
 # print(token_info)
 
+parent_class_map = {
+    0: 0,
+    1: 1,
+    2: 1,
+    3: 1,
+    4: 1,
+    5: 1,
+    6: 1,
+    7: 1,
+    8: 1,
+    9: 1
+}
 
 def fetch_bounds(
     coord_set,
@@ -81,24 +93,31 @@ def make_patches(img, patch_shape):
     return patchify(img, (*patch_shape, 3), patch_shape[0]).squeeze()
 
 
+
 def classify_stitch_patches(patches, clf_name):
 
-    seg_patches = []
+    main_acc = []
     for i in range(patches.shape[0]):
+
         seg_patches_temp = []
         for j in range(patches.shape[1]):
+
             patch = patches[i][j]
-            class_label = classifier.classify_image(patch, clf_name)
+            class_label = parent_class_map.get(
+                classifier.classify_image(patch, clf_name)
+            )
             # TODO: Handle model load errors (if label is -1)
             seg_patch = np.full(patch.shape, class_label, dtype=int)
             seg_patches_temp.append(seg_patch)
-        seg_patches.append(seg_patches_temp)
-        print(i)
-    return np.array(seg_patches).squeeze().astype(np.uint8)
+
+        seg_patches = np.hstack(seg_patches_temp)
+        main_acc.append(seg_patches)
+        
+    return np.vstack(main_acc)
 
 
 # def stitch_patches(patches, orig_shape):
-    print(f"stitch patch shape: {patches.shape}")    
+    # print(f"stitch patch shape: {patches.shape}")    
     # image = unpatchify(patches, orig_shape)
 
     # img_copy = list()
@@ -110,20 +129,18 @@ def classify_stitch_patches(patches, clf_name):
 
 
 def check():
-    ND_IMG_PATH = r"D:\\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\images0.png"
 
-    img = Image.open(ND_IMG_PATH)
+    ND_IMG_PATH = r"D:\\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\images0.png"
+    KD_IMG_PATH = "/home/karthikd/Workspace/Events/SIH'22/repositories/SatVision/Web-Backend/images0.png"
+
+    img = Image.open(KD_IMG_PATH)
     img = np.asarray(img)
 
-    print(f"img shape: {img.shape}") 
-
-    make_patches(img, (64, 64)), img.shape   
-
+    make_patches(img, (64, 64)), img.shape
     img_restored = classify_stitch_patches(make_patches(img, (64, 64)), "vgg16-eurosat")
 
     print(f"img_restored: {img_restored.shape}")
-
-    Image.fromarray(img_restored).save("stitched1.png")
+    Image.fromarray(img_restored.astype(np.uint8)*255).save("stitched1.png")
 
 
 def drive():

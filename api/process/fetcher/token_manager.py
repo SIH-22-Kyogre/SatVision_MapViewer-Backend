@@ -6,7 +6,10 @@ import pickle
 # TODO: Check expiry and refresh, when reusing token
 
 CLIENT_NAME = "satvision-test"
-CLIENT_PATH = f".client_{CLIENT_NAME}"
+CLIENT_PATH = os.path.join(
+    os.path.abspath(os.path.split(__file__)[0]),
+    f".client_{CLIENT_NAME}"
+)
 
 SECRET_FILEPATH = os.path.join(CLIENT_PATH, '.secret')
 ID_FILEPATH = os.path.join(CLIENT_PATH, '.id')

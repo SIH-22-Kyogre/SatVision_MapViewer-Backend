@@ -3,9 +3,9 @@ from PIL import Image
 from io import BytesIO
 from matplotlib import pyplot as plot
 
-from token_manager import *
+from .token_manager import *
 
-session, token_info = get_oauth_session(gen_token=False)
+session, token_info = get_oauth_session(gen_token=True)
 # print(session)
 # print(token_info)
 
@@ -19,8 +19,9 @@ def fetch_bounds(
     ],
     bands = ["B02", "B03", "B04"],
     dimensions = (512, 512)
+    # TODO: Add dimsensions to the post specifications
 
-)
+):
     response = session.post(
         'https://services.sentinel-hub.com/api/v1/process',
         headers = {
@@ -69,6 +70,6 @@ def fetch_bounds(
 
     # print(response.content)
     response_img = Image.open(BytesIO(response.content))
-    plot.imshow(response_img)
-    plot.show()
+    # plot.imshow(response_img)
+    # plot.show()
     return response_img

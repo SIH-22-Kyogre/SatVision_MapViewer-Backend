@@ -13,11 +13,17 @@ IMAGES_PATH = os.path.join(
     'images'
 )
 
-ENDPOINT = "http://localhost:5000/api/classify/vgg16-eurosat"
+ENDPOINT = " http://127.0.0.1:5000/api/classify/vgg16-eurosat"
 
 
 # Encode image (Base-64)
-with open(os.path.join(IMAGES_PATH, "Residential_1004.jpg"), 'rb') as f:
+
+img = Image.open(os.path.join(IMAGES_PATH, "images.png"))
+img = img.resize((64, 64))
+print(np.asarray(img).shape)
+img.save(os.path.join(IMAGES_PATH, "images.png"))
+
+with open(os.path.join(IMAGES_PATH, "images.png"), 'rb') as f:
     img_bytes = f.read()
 img_b64 = base64.b64encode(img_bytes).decode("utf8")  
 

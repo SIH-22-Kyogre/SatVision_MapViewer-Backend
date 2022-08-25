@@ -68,6 +68,6 @@ def fetch_bounds(
 
     # print(response.content)
     response_img = Image.open(BytesIO(response.content))
-    # plot.imshow(response_img)
-    # plot.show()
+    plot.imshow(response_img)
+    plot.show()
     return response_img

@@ -53,8 +53,8 @@ def fetch_bounds(
                 }]
             },
             "output": {
-                "width": 128,
-                "height": 128
+                "width": 1248,
+                "height": 1248
             },
             "evalscript": """
 
@@ -103,15 +103,14 @@ def classify_stitch_patches(patches, clf_name):
         for j in range(patches.shape[1]):
 
             patch = patches[i][j]
-            class_label = parent_class_map.get(
-                classifier.classify_image(patch, clf_name)
-            )
+            class_label = classifier.classify_image(patch, clf_name)
             # TODO: Handle model load errors (if label is -1)
             seg_patch = np.full(patch.shape, class_label, dtype=int)
             seg_patches_temp.append(seg_patch)
 
         seg_patches = np.hstack(seg_patches_temp)
         main_acc.append(seg_patches)
+        print("Done with", i, "rows")
         
     return np.vstack(main_acc)
 
@@ -140,7 +139,7 @@ def check():
     img_restored = classify_stitch_patches(make_patches(img, (64, 64)), "vgg16-eurosat")
 
     print(f"img_restored: {img_restored.shape}")
-    Image.fromarray(img_restored.astype(np.uint8)*255).save("stitched1.png")
+    Image.fromarray(img_restored.astype(np.uint8)*25).save("stitched1.png")
 
 
 def drive():
@@ -148,11 +147,12 @@ def drive():
         "Bengaluru": [77.4255, 12.8752, 77.7176, 13.065],
         "Delhi": [76.5946, 28.366, 77.616, 28.9635],
         "Kolkata": [88.1708, 22.4857, 88.4947, 22.685],
+        "Kolkata_fourth": [87.44590370061093, 23.2439811846004, 88.09525564637022, 22.368449655030517],
         "Mumbai": [72.6015, 18.9002, 73.1554, 19.2492],
     }
 
     i = 0
-    val = coords.get("Kolkata")
+    val = coords.get("Kolkata_fourth")
     # print(response.content)
     response = fetch_bounds(val)
     response_img = Image.open(BytesIO(response.content))

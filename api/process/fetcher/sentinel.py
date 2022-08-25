@@ -41,8 +41,8 @@ def fetch_bounds(
                 }]
             },
             "output": {
-                "width": 2496,
-                "height": 2496
+                "width": 128,
+                "height": 128
             },
             "evalscript": """
 

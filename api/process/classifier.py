@@ -25,6 +25,9 @@ def classify_image(img, clf_name):
     ND_MODEL_PATH = r"D:\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\api\\assets\\pickles\\vgg16_eurosat.h5"
     KD_MODEL_PATH = "/home/karthikd/Workspace/Events/SIH'22/repositories/SatVision/Web-Backend/api/assets/pickles/vgg16_classifier_eurosat.pkl"
 
+    # for effv0
+    # ND_MODEL_PATH = r"D:\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\api\\assets\\pickles\\model4.pkl"
+
     # model = pickle.load(open(KD_MODEL_PATH, 'rb')) #KD
     model = tf.keras.models.load_model(ND_MODEL_PATH) #ND
 

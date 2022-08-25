@@ -134,16 +134,16 @@ def classify_stitch_patches(patches, clf_name):
 def check():
 
     ND_IMG_PATH = r"D:\\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\images0.png"
-    KD_IMG_PATH = "/home/karthikd/Workspace/Events/SIH'22/repositories/SatVision/Web-Backend/images0.png"
+    # KD_IMG_PATH = "/home/karthikd/Workspace/Events/SIH'22/repositories/SatVision/Web-Backend/images0.png"
 
-    img = Image.open(KD_IMG_PATH)
+    img = Image.open(ND_IMG_PATH)
     img = np.asarray(img)
 
     make_patches(img, (64, 64)), img.shape
     img_restored = classify_stitch_patches(make_patches(img, (64, 64)), "vgg16-eurosat")
 
     print(f"img_restored: {img_restored.shape}")
-    Image.fromarray(img_restored.astype(np.uint8)*25).save("stitched1.png")
+    Image.fromarray(img_restored.astype(np.uint8)).save("stitched1.png")
 
 
 def drive():

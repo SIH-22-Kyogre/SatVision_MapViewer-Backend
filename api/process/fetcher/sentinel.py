@@ -31,10 +31,13 @@ def fetch_bounds(
     "input": {
         "bounds": {
             "bbox": [
-                13.822174072265625,
-                45.85080395917834,
-                14.55963134765625,
-                46.29191774991382
+                # 13.822174072265625,
+                # 45.85080395917834,
+                # 14.55963134765625,
+                # 46.29191774991382
+                # 77.4255, 12.8752, 77.7176, 13.065 # Bangalore
+                # 72.6015, 18.9002, 73.1554, 19.2492 # Mumbai
+                88.1708, 22.4857, 88.4947, 22.685 # Kolkata
             ]
         },
         "data": [{
@@ -68,6 +71,5 @@ def fetch_bounds(
 
     # print(response.content)
     response_img = Image.open(BytesIO(response.content))
-    plot.imshow(response_img)
-    plot.show()
+    response_img.save("images.png")
     return response_img

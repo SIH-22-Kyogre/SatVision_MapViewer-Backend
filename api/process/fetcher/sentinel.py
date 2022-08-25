@@ -11,6 +11,7 @@ session, token_info = get_oauth_session(gen_token=True)
 
 
 def fetch_bounds(
+    coord_set,
     bound_box = [
         13.822174072265625,
         45.85080395917834,
@@ -30,15 +31,7 @@ def fetch_bounds(
         data = json.dumps({
     "input": {
         "bounds": {
-            "bbox": [
-                # 13.822174072265625,
-                # 45.85080395917834,
-                # 14.55963134765625,
-                # 46.29191774991382
-                # 77.4255, 12.8752, 77.7176, 13.065 # Bangalore
-                # 72.6015, 18.9002, 73.1554, 19.2492 # Mumbai
-                88.1708, 22.4857, 88.4947, 22.685 # Kolkata
-            ]
+            "bbox": coord_set
         },
         "data": [{
             "type": "sentinel-2-l2a"
@@ -69,7 +62,19 @@ def fetch_bounds(
 })
     )
 
-    # print(response.content)
-    response_img = Image.open(BytesIO(response.content))
-    response_img.save("images.png")
+    return response
+
+def drive():
+    coords = {
+        "Bengaluru": [77.4255, 12.8752, 77.7176, 13.065],
+        "Delhi": [76.5946, 28.366, 77.616, 28.9635],
+        "Kolkata": [88.1708, 22.4857, 88.4947, 22.685],
+        "Mumbai": [72.6015, 18.9002, 73.1554, 19.2492],
+    }
+
+    for i, val in enumerate(coords.values()):
+        # print(response.content)
+        response = fetch_bounds(val)
+        response_img = Image.open(BytesIO(response.content))
+        response_img.save(f"images{i}.png")
     return response_img

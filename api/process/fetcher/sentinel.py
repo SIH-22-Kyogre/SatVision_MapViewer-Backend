@@ -28,10 +28,14 @@ parent_class_map = {
 def fetch_bounds(
     coord_set,
     bound_box = [
-        13.822174072265625,
-        45.85080395917834,
-        14.55963134765625,
-        46.29191774991382
+        # 13.822174072265625,
+        # 45.85080395917834,
+        # 14.55963134765625,
+        # 46.29191774991382
+        30.705154,
+        76.642477,
+        30.686567,
+        76.677050
     ],
     bands = ["B02", "B03", "B04"],
     dimensions = (512, 512)
@@ -149,12 +153,16 @@ def drive():
         "Kolkata": [88.1708, 22.4857, 88.4947, 22.685],
         "Kolkata_fourth": [87.44590370061093, 23.2439811846004, 88.09525564637022, 22.368449655030517],
         "Mumbai": [72.6015, 18.9002, 73.1554, 19.2492],
+        "custom": [
+            76.642477, 30.705154, 
+            76.677050, 30.686567
+        ]
     }
 
     i = 0
-    val = coords.get("Kolkata_fourth")
+    val = coords.get("custom")
     # print(response.content)
     response = fetch_bounds(val)
     response_img = Image.open(BytesIO(response.content))
-    response_img.save(f"images{i}.png")
+    response_img.save(f"custom-{i}.png")
     return response_img

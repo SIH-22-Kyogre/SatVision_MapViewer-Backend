@@ -72,23 +72,30 @@ def fetch_bounds(
 
 def make_patches(img, patch_shape):
 
-    channels = np.moveaxis(img, -1, 0)
-    patches = [
-        patchify(channel, patch_shape, step=channel.shape[0]) 
-        for channel in channels
-    ]
-    return patches
+    # channels = np.moveaxis(img, -1, 0)
+    # patches = []
+    # for channel in channels:
+    #     chnl_patches = patchify(channel, patch_shape, step=patch_shape[0])
+    #     patches.append(patchify(channel, patch_shape, step=channel.shape[0]))
+    
+    return patchify(img, (*patch_shape, 3), patch_shape[0]).squeeze()
 
 
 def classify_patches(patches, clf_name):
-    
-    for i, patch in enumerate(patches):
-        class_label = classifier.classify_image(patch, clf_name)
-        # TODO: Handle model load errors (if label is -1)
-        patch[True] = class_label
-        patches[i] = patch 
-    
-    return patches 
+
+    seg_patches = []
+    for i in range(patches.shape[0]):
+        seg_patches_temp = []
+        for j in range(patches.shape[1]):
+            patch = patches[i][j]
+            class_label = classifier.classify_image(patch, clf_name)
+            # TODO: Handle model load errors (if label is -1)
+            seg_patch = np.full(patch.shape, class_label, dtype=int)
+            seg_patches_temp.append(seg_patch)
+        seg_patches.append(seg_patches)
+        print(i)
+    return np.array(seg_patches).shape
+
 
 def stitch_patches(patches, orig_shape):    
     image = unpatchify(patches, orig_shape)
@@ -96,10 +103,10 @@ def stitch_patches(patches, orig_shape):
 
 
 def check():
-    img = Image.open("/home/karthikd/Workspace/Events/SIH'22/repositories/SatVision/Web-Backend/images1.png")
+    img = Image.open("/home/karthikd/Workspace/Events/SIH'22/repositories/SatVision/Web-Backend/images0.png")
     img = np.asarray(img)
     
-    img_restored = stitch_patches(classify_patches(make_patches(img, (10,10)), "vgg16-eurosat"), img.shape)
+    img_restored = stitch_patches(classify_patches(make_patches(img, (64, 64)), "vgg16-eurosat"), img.shape)
     Image.fromarray(img_restored).save("stitched1.png")
 
 

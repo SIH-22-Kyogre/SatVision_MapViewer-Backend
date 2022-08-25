@@ -27,7 +27,7 @@ def classify_image(img, clf_name):
         pred_class = model.predict(
             np.expand_dims(img, axis=0)
         )[0]
-        return int(utils.decode_one_hot(pred_class)[0][0])
+        return int(utils.decode_one_hot(pred_class))
 
     else:
         return -1

@@ -12,9 +12,9 @@ class SatImage(Resource):
 
         # bound_box = request.json.get('bbox')
         # img_np = sentinel.fetch_bounds()
-        img_np = sentinel.drive()
+        # img_np = sentinel.drive()
 
-        # sentinel.check()     
+        sentinel.check()     
 
         # plot.imshow(img_np)
         # plot.show()

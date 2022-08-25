@@ -1,6 +1,8 @@
 import pickle
 import os
 import numpy as np
+import keras
+import tensorflow as tf
 
 from . import utils
 
@@ -11,17 +13,18 @@ PICKLES_PATH = os.path.join(
     'pickles'
 )
 
+# model = tf.keras.Model()
+
+
 classifier_mapping = {
     "vgg16-eurosat": "vgg16_classifier_eurosat.pkl"
 }
 
 
 def classify_image(img, clf_name):
-    
-    model = pickle.load(open(os.path.join(
-        PICKLES_PATH, 
-        classifier_mapping.get(clf_name, None)
-    ), 'rb'))
+    ND_IMG_PATH = r"D:\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\api\\assets\\pickles\\vgg16_eurosat.h5"
+
+    model = tf.keras.models.load_model(ND_IMG_PATH)
 
     if model is not None:
         pred_class = model.predict(

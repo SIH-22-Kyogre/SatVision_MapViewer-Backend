@@ -14,18 +14,23 @@ session, token_info = get_oauth_session(gen_token=True)
 # print(session)
 # print(token_info)
 
+# parent_class_map = {
+#     0: 1,
+#     1: 1,
+#     2: 1,
+#     3: 0,
+#     4: 0,
+#     5: 1,
+#     6: 1,
+#     7: 0,
+#     8: 1,
+#     9: 1
+# }
 parent_class_map = {
-    0: 1,
-    1: 1,
-    2: 1,
-    3: 0,
-    4: 0,
-    5: 1,
-    6: 1,
-    7: 0,
-    8: 1,
-    9: 1
+    0: 0, # residential
+    1: 1
 }
+
 
 def fetch_bounds(
     coord_set,
@@ -143,14 +148,14 @@ def classify_stitch_patches(patches, clf_name):
 
 def check():
 
-    ND_IMG_PATH = r"D:\\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\images0.png"
-    # KD_IMG_PATH = "/home/karthikd/Workspace/Events/SIH'22/repositories/SatVision/Web-Backend/images0.png"
+    # ND_IMG_PATH = r"D:\\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\images0.png"
+    KD_IMG_PATH = "/home/karthikd/Workspace/Events/SIH'22/repositories/SatVision/Web-Backend/CGC-2496.png"
 
-    img = Image.open(ND_IMG_PATH)
+    img = Image.open(KD_IMG_PATH)
     img = np.asarray(img)
 
-    make_patches(img, (64*3, 64*3)), img.shape
-    img_restored = classify_stitch_patches(make_patches(img, (64*3, 64*3)), "vgg16-eurosat")
+    make_patches(img, (64*5, 64*5)), img.shape
+    img_restored = classify_stitch_patches(make_patches(img, (64*5, 64*5)), "vgg16-eurosat")
 
     print(f"img_restored: {img_restored.shape}")
     Image.fromarray(img_restored.astype(np.uint8)).save("CGC-mask-192.png")
@@ -163,10 +168,7 @@ def drive():
         "Kolkata": [88.1708, 22.4857, 88.4947, 22.685],
         "Kolkata_fourth": [87.44590370061093, 23.2439811846004, 88.09525564637022, 22.368449655030517],
         "Mumbai": [72.6015, 18.9002, 73.1554, 19.2492],
-        "CGC": [
-            76.642477, 30.705154, 
-            76.677050, 30.686567
-        ],
+        "CGC": [],
         "Bengaluru_2": [ 
             77.579915, 12.985064,
             77.606919, 12.969623

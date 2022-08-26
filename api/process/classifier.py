@@ -99,16 +99,11 @@ def classify_image(img, clf_name):
 
         import tensorflow as tf
         from keras.models import Model
-        from keras.layers import Dense, Dropout, Flatten
-        from keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
-        from keras.optimizers import Adam
-
-
         # from keras.applications import VGG16, VGG19
-        from keras.applications import ResNet152V2
 
         ND_MODEL_FILE = "D:\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\api\\assets\\pickles\\ResNet152V2.h5"
-        model = tf.keras.models.load_model(ND_MODEL_FILE)
+        KD_MODEL_FILE = "/home/karthikd/Workspace/Events/SIH'22/repositories/SatVision/Web-Backend/api/assets/pickles/base_classification.h5"
+        model = tf.keras.models.load_model(KD_MODEL_FILE)
         return model
 
     model = make_resnet152v2_classifier()

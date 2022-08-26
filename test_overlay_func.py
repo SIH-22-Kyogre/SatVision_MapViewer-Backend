@@ -20,8 +20,11 @@ def imageOverlay(image1, image2):
     overlayOutput = cv2.addWeighted(image1, 0.6, image2_recolor, 0.4, 0)
     return overlayOutput
 
-image1 = cv2.imread(r"D:\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\CGC-2496.png")
-image2 = cv2.imread(r"D:\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\CGC-mask-192.png")
+# image1 = cv2.imread(r"D:\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\CGC-2496.png")
+# image2 = cv2.imread(r"D:\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\CGC-mask-192.png")
+
+image1 = cv2.imread("/home/karthikd/Workspace/Events/SIH'22/repositories/SatVision/Web-Backend/CGC-2496.png")
+image2 = cv2.imread("/home/karthikd/Workspace/Events/SIH'22/repositories/SatVision/Web-Backend/CGC-mask-192.png")
 
 image3 = imageOverlay(image1, image2)
 

@@ -12,7 +12,7 @@ import numpy as np
 
 def imageOverlay(image1, image2):
     image2 = cv2.resize(image2, (image1.shape[1], image1.shape[0]))
-    overlayOutput = cv2.addWeighted(image1, 0.8, image2, 0.2, 0)
+    overlayOutput = cv2.addWeighted(image1, 0.6, image2, 0.4, 0)
     return overlayOutput
 
 class SatImage(Resource):
@@ -21,13 +21,13 @@ class SatImage(Resource):
 
         # bound_box = request.json.get('bbox')
         # img_np = sentinel.fetch_bounds()
-        # img_np = sentinel.drive()
-        # sentinel.check()   
+        img_np = sentinel.drive()
+        sentinel.check()   
         # plot.imshow(img_np)
         # plot.show()
 
-        image1 = cv2.imread(r"D:\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\custom-0.png")
-        image2 = cv2.imread(r"D:\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\stitched1.png")
+        image1 = cv2.imread(r"D:\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\CGC-2496-res152.png")
+        image2 = cv2.imread(r"D:\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\CGC-mask-192-res152.png")
 
         image3 = imageOverlay(image1, image2)
 
@@ -37,7 +37,7 @@ class SatImage(Resource):
         print(f"image3 type: {type(image3)}")
 
         # Image.fromarray(image3.astype(np.uint8)*25).save("overlay.png") - DON'T DO THIS - MATCH!
-        cv2.imwrite("overlay.png", image3)
+        cv2.imwrite("CGC-overlay-res152.png", image3)
 
         
 

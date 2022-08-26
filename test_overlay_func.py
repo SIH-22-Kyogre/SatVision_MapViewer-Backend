@@ -4,24 +4,6 @@ import numpy as np
 from PIL import Image
 
 def imageOverlay(image1, image2):
-    
-
-    image2 //= 50
-    
-    print(image2)
-    print("\n\n\n\n")
-
-    image2[image2==1] = 0 
-    image2[image2==2] = 0
-    image2[image2==3] = 1
-    image2[image2==4] = 1
-    image2[image2==5] = 1
-    image2[image2==6] = 1
-    image2[image2==7] = 1
-    image2[image2==8] = 1
-    image2[image2==9] = 1
-
-    print(image2)
 
     image2 = cv2.resize(image2, (image1.shape[1], image1.shape[0]))
     b_channel = image2[:,:,:1]
@@ -38,8 +20,8 @@ def imageOverlay(image1, image2):
     overlayOutput = cv2.addWeighted(image1, 0.6, image2_recolor, 0.4, 0)
     return overlayOutput
 
-image1 = cv2.imread(r"D:\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\custom-0.png")
-image2 = cv2.imread(r"D:\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\stitched1.png")
+image1 = cv2.imread(r"D:\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\CGC-2496.png")
+image2 = cv2.imread(r"D:\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\CGC-mask-192.png")
 
 image3 = imageOverlay(image1, image2)
 

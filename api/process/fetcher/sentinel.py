@@ -13,14 +13,14 @@ session, token_info = get_oauth_session(gen_token=True)
 # print(token_info)
 
 parent_class_map = {
-    0: 0,
+    0: 1,
     1: 1,
     2: 1,
-    3: 1,
-    4: 1,
+    3: 0,
+    4: 0,
     5: 1,
     6: 1,
-    7: 1,
+    7: 0,
     8: 1,
     9: 1
 }
@@ -57,8 +57,8 @@ def fetch_bounds(
                 }]
             },
             "output": {
-                "width": 1248,
-                "height": 1248
+                "width": 2496,
+                "height": 2496
             },
             "evalscript": """
 
@@ -107,9 +107,9 @@ def classify_stitch_patches(patches, clf_name):
         for j in range(patches.shape[1]):
 
             patch = patches[i][j]
-            class_label = classifier.classify_image(patch, clf_name)
+            class_label = parent_class_map[classifier.classify_image(patch, clf_name)]
             # TODO: Handle model load errors (if label is -1)
-            seg_patch = np.full(patch.shape, class_label, dtype=int)
+            seg_patch = np.full(patch.shape, class_label*255, dtype=int)
             seg_patches_temp.append(seg_patch)
 
         seg_patches = np.hstack(seg_patches_temp)
@@ -134,16 +134,16 @@ def classify_stitch_patches(patches, clf_name):
 def check():
 
     ND_IMG_PATH = r"D:\\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\images0.png"
-    KD_IMG_PATH = "/home/karthikd/Workspace/Events/SIH'22/repositories/SatVision/Web-Backend/images0.png"
+    # KD_IMG_PATH = "/home/karthikd/Workspace/Events/SIH'22/repositories/SatVision/Web-Backend/images0.png"
 
-    img = Image.open(KD_IMG_PATH)
+    img = Image.open(ND_IMG_PATH)
     img = np.asarray(img)
 
-    make_patches(img, (64, 64)), img.shape
-    img_restored = classify_stitch_patches(make_patches(img, (64, 64)), "vgg16-eurosat")
+    make_patches(img, (64*3, 64*3)), img.shape
+    img_restored = classify_stitch_patches(make_patches(img, (64*3, 64*3)), "vgg16-eurosat")
 
     print(f"img_restored: {img_restored.shape}")
-    Image.fromarray(img_restored.astype(np.uint8)*25).save("stitched1.png")
+    Image.fromarray(img_restored.astype(np.uint8)).save("CGC-mask-192.png")
 
 
 def drive():

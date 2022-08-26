@@ -88,7 +88,7 @@ def fetch_bounds(
     return response
 
 
-def make_patches(img, patch_shape):
+def make_patches(img, patch_shape, save_patches_as=None):
 
     # channels = np.moveaxis(img, -1, 0)
     # patches = []
@@ -96,8 +96,13 @@ def make_patches(img, patch_shape):
     #     chnl_patches = patchify(channel, patch_shape, step=patch_shape[0])
     #     patches.append(patchify(channel, patch_shape, step=channel.shape[0]))
     
-    return patchify(img, (*patch_shape, 3), patch_shape[0]).squeeze()
-
+    patches = patchify(img, (*patch_shape, 3), patch_shape[0]).squeeze()
+    if save_patches_as is not None:
+        for i in range(patches.shape[0]):
+            for j in range(patches.shape[1]):
+                patch = patches[i][j]
+                Image.fromarray(patch).save(f"{save_patches_as}_{i}{j}.png")
+    return patches
 
 
 def classify_stitch_patches(patches, clf_name):

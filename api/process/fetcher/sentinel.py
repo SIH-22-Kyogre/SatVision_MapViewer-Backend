@@ -8,6 +8,8 @@ import numpy as np
 from .token_manager import *
 from .. import classifier
 
+import time
+
 session, token_info = get_oauth_session(gen_token=True)
 # print(session)
 # print(token_info)
@@ -100,12 +102,13 @@ def make_patches(img, patch_shape):
 
 def classify_stitch_patches(patches, clf_name):
 
+    start_t = time.time()
     main_acc = []
     for i in range(patches.shape[0]):
-
+        
         seg_patches_temp = []
         for j in range(patches.shape[1]):
-
+            
             patch = patches[i][j]
             class_label = parent_class_map[classifier.classify_image(patch, clf_name)]
             # TODO: Handle model load errors (if label is -1)
@@ -115,6 +118,8 @@ def classify_stitch_patches(patches, clf_name):
         seg_patches = np.hstack(seg_patches_temp)
         main_acc.append(seg_patches)
         print("Done with", i, "rows")
+    
+    print(f"Inferred patches in {time.time()-start_t}")
         
     return np.vstack(main_acc)
 

@@ -153,16 +153,34 @@ def drive():
         "Kolkata": [88.1708, 22.4857, 88.4947, 22.685],
         "Kolkata_fourth": [87.44590370061093, 23.2439811846004, 88.09525564637022, 22.368449655030517],
         "Mumbai": [72.6015, 18.9002, 73.1554, 19.2492],
-        "custom": [
+        "CGC": [
             76.642477, 30.705154, 
             76.677050, 30.686567
+        ],
+        "Bengaluru_2": [ 
+            77.579915, 12.985064,
+            77.606919, 12.969623
+        ],
+        "Delhi_2": [
+            77.186769, 28.532386,
+            77.196361, 28.527784
+        ],
+        "India": [
+            87.203927, 22.263545,
+            77.606919, 12.969623
+        ],
+        "X": [
+            76.6647799, 30.6863144,
+            76.6646221, 30.6858911 
         ]
     }
 
     i = 0
-    val = coords.get("custom")
+    city = "X"
+    val = coords.get(city)
     # print(response.content)
     response = fetch_bounds(val)
+    print(response)
     response_img = Image.open(BytesIO(response.content))
-    response_img.save(f"custom-{i}.png")
+    response_img.save(f"{city}_Sat.png")
     return response_img

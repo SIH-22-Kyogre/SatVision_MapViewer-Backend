@@ -23,8 +23,8 @@ def imageOverlay(image1, image2):
 # image1 = cv2.imread(r"D:\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\CGC-2496.png")
 # image2 = cv2.imread(r"D:\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\CGC-mask-192.png")
 
-image1 = cv2.imread("/home/karthikd/Workspace/Events/SIH'22/repositories/SatVision/Web-Backend/CGC-2496.png")
-image2 = cv2.imread("/home/karthikd/Workspace/Events/SIH'22/repositories/SatVision/Web-Backend/CGC-mask-192.png")
+image1 = cv2.imread("/home/karthikd/Workspace/Events/SIH'22/repositories/SatVision/Web-Backend/Gujarat_Sat.png")
+image2 = cv2.imread("/home/karthikd/Workspace/Events/SIH'22/repositories/SatVision/Web-Backend/Gujarat-mask-192.png")
 
 image3 = imageOverlay(image1, image2)
 

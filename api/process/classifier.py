@@ -106,11 +106,24 @@ def classify_image(img, clf_name):
         model = tf.keras.models.load_model(KD_MODEL_FILE)
         return model
 
-    model = make_resnet152v2_classifier()
+    def make_effnetb1_classifier():
+
+        import tensorflow as tf
+        from keras.models import Model
+        # from keras.applications import VGG16, VGG19
+
+        #ND_MODEL_FILE = "D:\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\api\\assets\\pickles\\ResNet152V2.h5"
+        KD_MODEL_FILE = "/home/karthikd/Workspace/Events/SIH'22/repositories/SatVision/Web-Backend/api/assets/pickles/EfficientNetB1.h5"
+        model = tf.keras.models.load_model(KD_MODEL_FILE)
+        return model
+
+    model = make_effnetb1_classifier()
     if model is not None:
         img = Image.fromarray(img).resize((64, 64))
         print(model.predict(np.expand_dims(img, axis=0)))
         return np.argmax(model.predict(np.expand_dims(img, axis=0))[0])
+
+    
 
     
     

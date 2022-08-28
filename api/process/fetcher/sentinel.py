@@ -14,22 +14,22 @@ session, token_info = get_oauth_session(gen_token=True)
 # print(session)
 # print(token_info)
 
-# parent_class_map = {
-#     0: 1,
-#     1: 1,
-#     2: 1,
-#     3: 0,
-#     4: 0,
-#     5: 1,
-#     6: 1,
-#     7: 0,
-#     8: 1,
-#     9: 1
-# }
 parent_class_map = {
-    0: 0, # residential
-    1: 1
+    0: 1,
+    1: 1,
+    2: 1,
+    3: 0,
+    4: 0,
+    5: 1,
+    6: 1,
+    7: 0,
+    8: 1,
+    9: 1
 }
+# parent_class_map = {
+#     0: 0, # residential
+#     1: 1
+# }
 
 
 def fetch_bounds(
@@ -149,16 +149,16 @@ def classify_stitch_patches(patches, clf_name):
 def check():
 
     # ND_IMG_PATH = r"D:\\\work\\nive\\SSN-College-Of-Engineering\\Extra-Curricular\\UWARL\\sih\\Code\\SatVision_MapViewer-Backend\\images0.png"
-    KD_IMG_PATH = "/home/karthikd/Workspace/Events/SIH'22/repositories/SatVision/Web-Backend/CGC-2496.png"
+    KD_IMG_PATH = "/home/karthikd/Workspace/Events/SIH\'22/repositories/SatVision/Web-Backend/Gujarat_Sat.png"
 
     img = Image.open(KD_IMG_PATH)
     img = np.asarray(img)
 
-    make_patches(img, (64*5, 64*5)), img.shape
-    img_restored = classify_stitch_patches(make_patches(img, (64*5, 64*5)), "vgg16-eurosat")
+    make_patches(img, (64*6, 64*6)), img.shape
+    img_restored = classify_stitch_patches(make_patches(img, (64*6, 64*6)), "vgg16-eurosat")
 
     print(f"img_restored: {img_restored.shape}")
-    Image.fromarray(img_restored.astype(np.uint8)).save("CGC-mask-192.png")
+    Image.fromarray(img_restored.astype(np.uint8)).save("Gujarat-mask-192.png")
 
 
 def drive():
@@ -184,11 +184,21 @@ def drive():
         "X": [
             76.6647799, 30.6863144,
             76.6646221, 30.6858911 
+        ],
+        "Rajasthan": [
+            75.87056837264927,
+            26.89632298741782,
+            75.88472407062986,
+            26.912218806098252
+        ],
+        "Gujarat":  [
+            72.51790346587711, 22.963474141633426, 
+            72.64000972794906, 23.10497381514483
         ]
     }
 
     i = 0
-    city = "X"
+    city = "Gujarat"
     val = coords.get(city)
     # print(response.content)
     response = fetch_bounds(val)
